@@ -1,5 +1,7 @@
 import type { AppProps } from 'next/app';
 
+import { MainLayout } from 'src/components/layout/main';
+
 import 'src/styles/globals.css';
 
 interface Props extends AppProps {
@@ -7,7 +9,8 @@ interface Props extends AppProps {
 }
 
 export default function App({ Component, pageProps }: Props) {
-	const Layout = Component?.Layout;
+	const Layout = Component?.Layout || MainLayout;
+
 	return (
 		<Layout>
 			<Component {...pageProps} />

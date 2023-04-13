@@ -1,9 +1,10 @@
 import { Layout } from 'antd';
 import Head from 'next/head';
 
+import { FooterSection } from '../footer';
 import { HeaderSection } from '../header';
 
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 
 interface LayoutProps {
 	children: React.ReactNode;
@@ -17,12 +18,10 @@ export const MainLayout = ({ children }: LayoutProps) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<HeaderSection />
-			<Content>{children}</Content>
-			<Footer className="bg-gray-800 text-white p-4 text-center">
-				<div className="container mx-auto">
-					<p>Copyright © 2023 IPPEDU</p>
-				</div>
-			</Footer>
+			<Content>
+				<div className="container mx-auto px-8 py-12">{children}</div>
+			</Content>
+			<FooterSection />
 		</Layout>
 	);
 };

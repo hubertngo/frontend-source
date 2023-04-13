@@ -3,6 +3,8 @@ import { Button, Drawer, Layout, Menu } from 'antd';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
+import type { MenuProps } from 'antd';
+
 const { Header } = Layout;
 
 export const HeaderSection: React.FC = () => {
@@ -16,6 +18,41 @@ export const HeaderSection: React.FC = () => {
 		setVisible(false);
 	};
 
+	const items: MenuProps['items'] = [
+		{
+			key: '1',
+			label: 'Home',
+		},
+		{
+			key: '2',
+			label: 'About',
+		},
+		{
+			key: '3',
+			label: 'Courses',
+		},
+		{
+			key: '4',
+			label: 'Contact',
+		},
+	];
+
+	const mobileItems: MenuProps['items'] = [
+		...items,
+		{
+			key: '5',
+			label: (
+				<Button block className="mt-4" type="primary">
+					Sign Up
+				</Button>
+			),
+		},
+		{
+			key: '6',
+			label: <Button block>Log In</Button>,
+		},
+	];
+
 	return (
 		<Header className="bg-white shadow-sm fixed w-full z-10">
 			<div className="container mx-auto px-4">
@@ -24,12 +61,7 @@ export const HeaderSection: React.FC = () => {
 						<div className="w-32">
 							<Image src="/logo/32x32.png" alt="ipPedu" width={32} height={32} />
 						</div>
-						<Menu mode="horizontal" className="hidden md:block">
-							<Menu.Item key="1">Home</Menu.Item>
-							<Menu.Item key="2">About</Menu.Item>
-							<Menu.Item key="3">Courses</Menu.Item>
-							<Menu.Item key="4">Contact</Menu.Item>
-						</Menu>
+						<Menu mode="horizontal" className="hidden md:block" items={items} />
 					</div>
 					<div className="hidden md:block">
 						<Button className="mr-4">Log In</Button>
@@ -42,21 +74,8 @@ export const HeaderSection: React.FC = () => {
 					</div>
 				</div>
 			</div>
-			<Drawer placement="right" closable={false} onClose={onClose} visible={visible}>
-				<Menu mode="inline">
-					<Menu.Item key="1">Home</Menu.Item>
-					<Menu.Item key="2">About</Menu.Item>
-					<Menu.Item key="3">Courses</Menu.Item>
-					<Menu.Item key="4">Contact</Menu.Item>
-					<Menu.Item key="5">
-						<Button block className="mt-4" type="primary">
-							Sign Up
-						</Button>
-					</Menu.Item>
-					<Menu.Item key="6">
-						<Button block>Log In</Button>
-					</Menu.Item>
-				</Menu>
+			<Drawer placement="right" closable={false} onClose={onClose} open={visible}>
+				<Menu mode="inline" items={mobileItems} />
 			</Drawer>
 		</Header>
 	);
