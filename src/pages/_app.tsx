@@ -1,6 +1,16 @@
-import 'src/styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import 'src/styles/globals.css';
+
+interface Props extends AppProps {
+	Component: any;
+}
+
+export default function App({ Component, pageProps }: Props) {
+	const Layout = Component?.Layout;
+	return (
+		<Layout>
+			<Component {...pageProps} />
+		</Layout>
+	);
 }
