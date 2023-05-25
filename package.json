@@ -3,10 +3,12 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "NODE_ENV=development env-cmd next dev",
+		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up"
 	},
 	"dependencies": {
 		"@types/node": "18.15.11",
@@ -21,10 +23,10 @@
 		"fs": "^0.0.1-security",
 		"immer": "^9.0.21",
 		"lodash": "^4.17.21",
-		"next": "13.3.0",
+		"next": "13.2.4",
 		"path": "^0.12.7",
 		"postcss": "8.4.21",
-		"query-string": "^8.1.0",
+		"query-string": "7.1.1",
 		"react": "18.2.0",
 		"react-cookies": "^0.1.1",
 		"react-dom": "18.2.0",
@@ -34,6 +36,7 @@
 	},
 	"devDependencies": {
 		"@types/lodash": "^4.14.192",
+		"@types/react-cookies": "^0.1.0",
 		"env-cmd": "^10.1.0"
 	}
 }

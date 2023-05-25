@@ -1,0 +1,30 @@
+# Build BASE
+FROM node:18-alpine as BASE
+
+WORKDIR /app
+
+COPY package.json yarn.lock* ./
+RUN yarn --frozen-lockfile
+
+# Build Image
+FROM node:18-alpine as BUILD
+
+WORKDIR /app
+COPY --from=BASE /app/node_modules ./node_modules
+COPY . .
+
+RUN yarn build \
+  && rm -rf node_modules \
+  && yarn install --production --frozen-lockfile --ignore-scripts --prefer-offline
+
+# Build production
+FROM node:18-alpine AS PRODUCTION
+
+WORKDIR /app
+
+COPY --from=BUILD /app/package.json /app/yarn.lock ./
+COPY --from=BUILD /app/node_modules ./node_modules
+COPY --from=BUILD /app/.next ./.next
+COPY --from=BUILD /app/public ./public
+
+CMD ["yarn", "start"]
